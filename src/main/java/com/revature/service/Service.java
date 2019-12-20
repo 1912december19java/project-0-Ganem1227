@@ -1,9 +1,14 @@
 package com.revature.service;
 
+import java.util.ArrayList;
+
+import com.revature.exception.AccountOverdrawnException;
+
 public class Service {
 	
 	private static String currUsername;
 	private static Double balance = 0.0;
+	private static ArrayList<String> sessionHistory = new ArrayList<String>();
 	
 	public Service() {
 		super();
@@ -30,11 +35,13 @@ public class Service {
 		if (balance < value) throw new AccountOverdrawnException();
 		else {
 			balance -= value;
+			sessionHistory.add("Withdrawal : -$" + value);
 		}
 	}
 	
 	public static void deposit(Double value) {
 		balance += value;
+		sessionHistory.add("Deposit :  $" + value);
 	}
 	
 	public static String getBalance() {
@@ -48,5 +55,23 @@ public class Service {
 	public static void resetStaticFields() {
 		balance = 0.0;
 		currUsername = "";
+		sessionHistory.clear();
+	}
+	
+	public static boolean checkDatabaseForUsername(String name) {
+		//check the database
+		return true;
+	}
+	
+	public static boolean transferMoney(String recipient, double amount) {
+		if (amount <= balance) {
+			balance -= amount;
+			sessionHistory.add("Transfer : -$" + amount);
+			return true;
+		}else return false;
+	}
+	
+	public static ArrayList<String> getTransactionHistory() {
+		return sessionHistory;
 	}
 }

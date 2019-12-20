@@ -21,6 +21,7 @@ public class Controller {
 		RegisterQuery register = new RegisterQuery("register");
 		WithdrawQuery withdraw = new WithdrawQuery("withdraw");
 		DepositQuery deposit = new DepositQuery("deposit");
+		TransferScreen transfer = new TransferScreen("transfer");
 		
 		states.put("mainMenu", mainMenu);
 		states.put("logIn", logIn);
@@ -28,6 +29,7 @@ public class Controller {
 		states.put("register", register);
 		states.put("withdraw", withdraw);
 		states.put("deposit", deposit);
+		states.put("transfer", transfer);
 		
 		
 		setState("mainMenu");

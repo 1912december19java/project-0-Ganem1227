@@ -1,12 +1,14 @@
 package com.revature.controller;
 
+import java.util.ArrayList;
+
 import com.revature.service.*;
 
 public class OptionScreen extends Menu {
 	
 	public OptionScreen(String newName) {
 		super(newName);
-		intro = "---Hello, your bank balance is " + Service.getBalance() + "---";
+		//intro = "---Hello, your bank balance is $" + Service.getBalance() + "---";
 		prompt = "What would you like to do today?"; 
 		options.add("Make a deposit");
 		options.add("Make a withdrawal");
@@ -25,8 +27,11 @@ public class OptionScreen extends Menu {
 		case 2 : finished = true;
 				 Controller.setState("withdraw");
 				 break;
-		case 3 : break;
-		case 4 : break;
+		case 3 : finished = true;
+				 Controller.setState("transfer");
+				 break;
+		case 4 : printTransactionHistory();
+				 break;
 		case 5 : System.out.println("Logging out, thanks for coming!");
 		 		 Controller.setState("mainMenu");
 		 		 Service.resetStaticFields();
@@ -38,8 +43,17 @@ public class OptionScreen extends Menu {
 	}
 	
 	public void show() {
-		intro = "---Hello " + Service.getUserName() + ", your bank balance is " + Service.getBalance() + "---";
+		intro = "---Hello " + Service.getUserName() + ", your bank balance is $" + Service.getBalance() + "---";
 		super.show();
+	}
+	
+	public void printTransactionHistory() {
+		ArrayList<String> history = Service.getTransactionHistory();
+		System.out.println("---Transaction History---");
+		
+		for (int i = 0; i < history.size(); i++) {
+			System.out.println(history.get(i));
+		}
 	}
 	
 }
