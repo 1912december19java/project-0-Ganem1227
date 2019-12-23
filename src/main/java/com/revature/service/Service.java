@@ -39,6 +39,10 @@ public class Service {
 		}
 	}
 	
+	public static boolean verifyEmail(String newEmail) {
+		return true;
+	}
+	
 	public static void deposit(Double value) {
 		balance += value;
 		sessionHistory.add("Deposit :  $" + value);
