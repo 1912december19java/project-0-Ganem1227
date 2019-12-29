@@ -21,6 +21,7 @@ public class RegisterQuery extends Screen {
 			System.out.print("Enter your new username: ");
 			newUsername = Controller.CONSOLE_INPUT.nextLine();
 			userValid = Service.checkUsername(newUsername);
+			if(!userValid) System.out.println("Username taken, please try again.");
 		}
 		
 		while(!passwordValid) {
@@ -29,7 +30,10 @@ public class RegisterQuery extends Screen {
 			System.out.print("Confirm your new password: ");
 			confirmPassword = Controller.CONSOLE_INPUT.nextLine();
 			
-			if (newPassword.equals(confirmPassword)) passwordValid = true;
+			if (newPassword.equals(confirmPassword)) {
+			  passwordValid = true;
+			  Service.addPassword(newPassword);
+			}
 			else System.out.println("Password mismatch, please reenter your new password.");
 		}
 		
@@ -38,6 +42,7 @@ public class RegisterQuery extends Screen {
 			newEmail = Controller.CONSOLE_INPUT.nextLine();
 			//This is where service verifies your email
 			finished = Service.verifyEmail(newEmail);
+			if(finished) Service.addUser();
 		}
 		
 		

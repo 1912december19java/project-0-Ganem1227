@@ -1,7 +1,6 @@
 package com.revature.controller;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import com.revature.service.*;
 
 public class OptionScreen extends Menu {
@@ -48,7 +47,7 @@ public class OptionScreen extends Menu {
 	}
 	
 	public void printTransactionHistory() {
-		ArrayList<String> history = Service.getTransactionHistory();
+		List<String> history = Service.getTransactionHistory();
 		System.out.println("---Transaction History---");
 		
 		for (int i = 0; i < history.size(); i++) {
