@@ -1,6 +1,7 @@
-package com.revature.controller;
+package com.revature.model;
 
 import java.util.InputMismatchException;
+import com.revature.controller.Controller;
 
 public class Query extends Screen {
 	public Query(String newName) {

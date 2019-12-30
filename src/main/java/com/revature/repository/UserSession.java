@@ -1,4 +1,4 @@
-package com.revature.databaseManager;
+package com.revature.repository;
 
 public class UserSession {
   private String username;

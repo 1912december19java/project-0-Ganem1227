@@ -2,22 +2,22 @@ package com.revature.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.revature.databaseManager.DatabaseManager;
-import com.revature.databaseManager.UserSession;
 import com.revature.exception.AccountOverdrawnException;
+import com.revature.repository.DatabaseManager;
+import com.revature.repository.UserSession;
 
 public class Service {
 	
     private static UserSession currSession = new UserSession();
     private static DatabaseManager dbManager = new DatabaseManager();
 	private static String currUsername;
-	private static Double balance = 0.0;
+	//private static Double balance = 0.0;
 	private static List<String> sessionHistory = new ArrayList<String>();
 	
 	public Service() {
 		super();
 		currUsername = "";
-		balance = 10.0;
+		currSession.setBalance(10.0);
 	}
 	
 	public static boolean checkUsername(String user) {
@@ -60,7 +60,7 @@ public class Service {
 		else {
 			currSession.setBalance(currSession.getBalance() - value);
 			dbManager.changeBalance(currSession.getBalance(), currUsername);
-	        dbManager.newTransaction("Withdrawal", currSession.getBalance() * -1, currSession.getUser_id());
+	        dbManager.newTransaction("Withdrawal", value * -1, currSession.getUser_id());
 			//sessionHistory.add("Withdrawal : -$" + value);
 		}
 	}
@@ -73,7 +73,7 @@ public class Service {
 	public static void deposit(Double value) {
 		currSession.setBalance(currSession.getBalance() + value);
 		dbManager.changeBalance(currSession.getBalance(), currUsername);
-		dbManager.newTransaction("Deposit", currSession.getBalance(), currSession.getUser_id());
+		dbManager.newTransaction("Deposit", value, currSession.getUser_id());
 		//sessionHistory.add("Deposit :  $" + value);
 	}
 	
@@ -88,7 +88,6 @@ public class Service {
 	}
 	
 	public static void resetStaticFields() {
-		balance = 0.0;
 		currUsername = "";
 		sessionHistory.clear();
 		currSession.cleanSession();

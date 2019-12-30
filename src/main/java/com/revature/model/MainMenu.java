@@ -1,4 +1,6 @@
-package com.revature.controller;
+package com.revature.model;
+
+import com.revature.controller.Controller;
 
 public class MainMenu extends Menu {
 	public MainMenu(String newName) {

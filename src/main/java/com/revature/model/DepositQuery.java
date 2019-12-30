@@ -1,5 +1,6 @@
-package com.revature.controller;
+package com.revature.model;
 
+import com.revature.controller.Controller;
 import com.revature.service.Service;
 
 public class DepositQuery extends Query {

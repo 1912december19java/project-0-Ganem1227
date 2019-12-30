@@ -1,5 +1,7 @@
-package com.revature.controller;
+package com.revature.model;
 
+import com.revature.controller.Controller;
+import com.revature.exception.PasswordToShortException;
 import com.revature.service.Service;
 
 public class RegisterQuery extends Screen {
@@ -27,6 +29,15 @@ public class RegisterQuery extends Screen {
 		while(!passwordValid) {
 			System.out.print("Enter your new password: ");
 			newPassword = Controller.CONSOLE_INPUT.nextLine();
+			
+			try {
+			  passwordLength(newPassword);
+			}catch (PasswordToShortException e) {
+			  System.out.println("Password too short. Please try again!");
+			  continue;
+			}
+			
+			
 			System.out.print("Confirm your new password: ");
 			confirmPassword = Controller.CONSOLE_INPUT.nextLine();
 			
@@ -47,5 +58,10 @@ public class RegisterQuery extends Screen {
 		
 		
 		Controller.setState("optionScreen");
+	}
+	
+	
+	private void passwordLength(String pass) throws PasswordToShortException {
+	  if (pass.length() == 0)throw new PasswordToShortException();
 	}
 }

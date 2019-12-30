@@ -1,4 +1,4 @@
-package com.revature.databaseManager;
+package com.revature.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,10 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 public class DatabaseManager {
   private static Connection cnn;
-  private UserSession currSession;
+  private static Logger log = Logger.getLogger(DatabaseManager.class);
   
   static {
     try {
@@ -18,9 +19,9 @@ public class DatabaseManager {
           System.getenv("AWS_URL"), 
           System.getenv("AWS_USERNAME"), 
           System.getenv("AWS_PASSWORD"));
-      System.out.println("Connected!");
+      log.info("Connected to Database.");
     }catch(SQLException e) {
-      e.printStackTrace();
+      log.error("Failed to connect to database", e);
     }
   }
   

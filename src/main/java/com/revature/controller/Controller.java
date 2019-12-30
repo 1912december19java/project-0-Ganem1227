@@ -1,16 +1,24 @@
 package com.revature.controller;
 
 import java.util.Scanner;
+import com.revature.model.DepositQuery;
+import com.revature.model.LogIn;
+import com.revature.model.MainMenu;
+import com.revature.model.OptionScreen;
+import com.revature.model.RegisterQuery;
+import com.revature.model.Screen;
+import com.revature.model.TransferScreen;
+import com.revature.model.WithdrawQuery;
 import java.util.Map;
 import java.util.HashMap;
 
 public class Controller {
 
-	static Scanner CONSOLE_INPUT = new Scanner(System.in);
+	static public Scanner CONSOLE_INPUT = new Scanner(System.in);
 	static Screen currScreen;
 	static Map<String, Screen> states = new HashMap<String, Screen>();
 	
-	static Boolean quit;
+	static public Boolean quit;
 	
 	public Controller() {
 		super();
@@ -42,7 +50,7 @@ public class Controller {
 		}
 	}
 	
-	protected static void setState(String newState) {
+	public static void setState(String newState) {
 		currScreen = states.get(newState);
 	}
 }

@@ -1,7 +1,7 @@
-package com.revature.controller;
+package com.revature.model;
 
 import java.util.InputMismatchException;
-
+import com.revature.controller.Controller;
 import com.revature.service.Service;
 
 public class TransferScreen extends Screen {

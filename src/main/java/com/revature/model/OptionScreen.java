@@ -1,6 +1,7 @@
-package com.revature.controller;
+package com.revature.model;
 
 import java.util.List;
+import com.revature.controller.Controller;
 import com.revature.service.*;
 
 public class OptionScreen extends Menu {
