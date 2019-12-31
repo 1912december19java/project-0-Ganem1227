@@ -95,8 +95,8 @@ public class Service {
 	}
 	
 	public static boolean checkDatabaseForUsername(String name) {
-		//check the database
-		return true;
+		
+		return dbManager.usernameInDatabase(name);
 	}
 	
 	public static boolean transferMoney(String recipient, double amount) {

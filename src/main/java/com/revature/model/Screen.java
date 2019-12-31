@@ -20,9 +20,12 @@ public class Screen {
 		if(hasIntro) System.out.println(intro);
 	}
 	
+	protected void resetPrompts() {
+	  finished = false;
+	}
 	
 	public void show() {
-		finished = false;
+		resetPrompts();
 	}
 	
 	void displayInputInstructions() {

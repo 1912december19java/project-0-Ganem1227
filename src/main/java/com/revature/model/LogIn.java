@@ -11,12 +11,17 @@ public class LogIn extends Screen{
 		intro = "---Log In---";
 	}
 	
+	protected void resetPrompts() {
+	  super.resetPrompts();
+	  prompt = "Username: ";
+	}
+	
 	public void show() {
 		displayIntro();
 		String user = "";
 		String pass = "";
 		//Controller.CONSOLE_INPUT.next();
-		super.show();
+		resetPrompts();
 		
 		while(!finished) {
 			System.out.print(prompt);
@@ -29,10 +34,17 @@ public class LogIn extends Screen{
 			finished = Service.checkLoginCredentials(user, pass);
 			//Service.checkLoginCredentials(user, pass);
 			
-			if(!finished) System.out.println("Wrong username or password, try again.");
-			else System.out.println("Log in successful!");
+			if(!finished) {
+			  System.out.println("Wrong username or password.");
+			  Controller.setState("mainMenu");
+			  break;
+			}
+			else {
+			  System.out.println("Log in successful!");
+			  Controller.setState("optionScreen");
+			}
 		}	
 		
-		Controller.setState("optionScreen");
+		
 	}
 }
