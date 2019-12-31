@@ -51,7 +51,7 @@ public class DatabaseManager {
     
     try {
       stmt = cnn.prepareStatement("INSERT INTO transactions (transaction_type, amount, username_id)"
-          + "VALUES (?, CAST(? AS NUMERIC), ?)");
+          + "VALUES (?, ?, ?)");
       stmt.setString(1, transactionType);
       stmt.setDouble(2, amount);
       stmt.setInt(3, user_id);
@@ -154,7 +154,7 @@ public class DatabaseManager {
     PreparedStatement stmt = null;
     ResultSet rs = null;
     
-    log.trace("Check if "+ user + " is in Databse");
+    log.trace("Check if "+ user + " is in Database");
     
     try {
       stmt = cnn.prepareStatement("SELECT count(username) FROM roster WHERE username = ?");
