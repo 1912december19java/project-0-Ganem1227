@@ -14,6 +14,9 @@ public class DatabaseManager {
   private static Logger log = Logger.getLogger(DatabaseManager.class);
   
   static {
+    
+    log.trace("Begin connection to DB");
+
     try {
       cnn = DriverManager.getConnection(
           System.getenv("AWS_URL"), 
@@ -27,6 +30,8 @@ public class DatabaseManager {
   
   public void save(UserSession userSession) {
     PreparedStatement stmt = null;
+    
+    log.trace("Save user session");
     
     try {
       stmt = cnn.prepareStatement("UPDATE roster SET balance = ? WHERE username = ?");
@@ -42,6 +47,7 @@ public class DatabaseManager {
   
   public void newTransaction(String transactionType, double amount, int user_id) {
     PreparedStatement stmt = null;
+    log.trace("Make new Transaction");
     
     try {
       stmt = cnn.prepareStatement("INSERT INTO transactions (transaction_type, amount, username_id)"
@@ -60,6 +66,8 @@ public class DatabaseManager {
     PreparedStatement stmt = null;
     ResultSet rs = null;
     int result = 0;
+    
+    log.trace("Fetching user ID from database");
     
     try {
       stmt = cnn.prepareStatement("SELECT id FROM roster WHERE username = ?");
@@ -82,6 +90,8 @@ public class DatabaseManager {
   public void changeBalance(double amount, String username) {
     PreparedStatement stmt = null;
     
+    log.trace("Change balance: " + amount);
+    
     try {
       stmt = cnn.prepareStatement("UPDATE roster SET balance = ? WHERE username = ?");
       stmt.setDouble(1, amount);
@@ -97,6 +107,7 @@ public class DatabaseManager {
   public void newProfile(UserSession userSession) {
     PreparedStatement stmt = null;
     
+    log.trace("Make new user: " + userSession.getUsername());
     try {
       stmt = cnn.prepareStatement("INSERT INTO roster(username, pass, email, balance) VALUES (?, ?, ?, ?)");
       stmt.setString(1, userSession.getUsername());
@@ -115,6 +126,7 @@ public class DatabaseManager {
     List<String> transactions = new ArrayList<String>();
     PreparedStatement stmt = null;
     ResultSet rs = null;
+    log.trace("Fetch all transactions of user:" + userSession.getUsername());
     
     try {
       stmt = cnn.prepareStatement("SELECT * FROM transactions WHERE username_id = ?");
@@ -142,6 +154,8 @@ public class DatabaseManager {
     PreparedStatement stmt = null;
     ResultSet rs = null;
     
+    log.trace("Check if "+ user + " is in Databse");
+    
     try {
       stmt = cnn.prepareStatement("SELECT count(username) FROM roster WHERE username = ?");
       stmt.setString(1, user);
@@ -164,6 +178,8 @@ public class DatabaseManager {
   public boolean verifyPassword(String user, String password) {
     PreparedStatement stmt = null;
     ResultSet rs = null;
+    
+    log.trace("Verify password :" + password);
     
     try {
       stmt = cnn.prepareStatement("SELECT pass FROM roster WHERE username = ?");
@@ -188,6 +204,8 @@ public class DatabaseManager {
   public double getBalanceFromDatabase(String user) {
     PreparedStatement stmt = null;
     ResultSet rs = null;
+    
+    log.trace("Get Balance from Database of user: " + user);
     
     try {
       
