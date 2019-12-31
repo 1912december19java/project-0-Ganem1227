@@ -83,7 +83,7 @@ public class DatabaseManager {
     PreparedStatement stmt = null;
     
     try {
-      stmt = cnn.prepareStatement("UPDATE roster SET balance = CAST(? AS NUMERIC) WHERE username = ?");
+      stmt = cnn.prepareStatement("UPDATE roster SET balance = ? WHERE username = ?");
       stmt.setDouble(1, amount);
       stmt.setString(2, username);
       
@@ -98,7 +98,7 @@ public class DatabaseManager {
     PreparedStatement stmt = null;
     
     try {
-      stmt = cnn.prepareStatement("INSERT INTO roster(username, pass, email, balance) VALUES (?, ?, ?, CAST(? AS NUMERIC))");
+      stmt = cnn.prepareStatement("INSERT INTO roster(username, pass, email, balance) VALUES (?, ?, ?, ?)");
       stmt.setString(1, userSession.getUsername());
       stmt.setString(2, userSession.getPassword());
       stmt.setString(3, userSession.getEmail());
@@ -125,7 +125,7 @@ public class DatabaseManager {
         rs = stmt.getResultSet();
         
         while(rs.next()) {
-          transactions.add(rs.getString("transaction_type") + " : " + rs.getDouble("amount"));
+          transactions.add(rs.getString("date_of_transaction") + " : " + rs.getString("transaction_type") + " : " + rs.getDouble("amount"));
         }
         
       }
@@ -155,6 +155,7 @@ public class DatabaseManager {
       }
       
     }catch(SQLException e) {
+      log.trace("SQLException in usernameInDatabase");
       e.printStackTrace();
     }
     return false;

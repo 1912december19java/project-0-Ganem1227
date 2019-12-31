@@ -48,6 +48,7 @@ public class Service {
     		currSession.setPassword(password);
     		
     		currSession.setUser_id(dbManager.getUserId(currSession.getUsername()));
+    		//System.out.println(currSession.getUser_id());
     		return true;
     	  }
 		//System.out.println("checkLoginCredentials : " + currUsername);
