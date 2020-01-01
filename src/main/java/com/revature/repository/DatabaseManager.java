@@ -13,21 +13,28 @@ public class DatabaseManager {
   private static Connection cnn;
   private static Logger log = Logger.getLogger(DatabaseManager.class);
   
-  static {
-    
+  
+  public DatabaseManager(String AWSurl, String AWSuser, String AWSpass) {
+    super();
     log.trace("Begin connection to DB");
 
     try {
       cnn = DriverManager.getConnection(
-          System.getenv("AWS_URL"), 
-          System.getenv("AWS_USERNAME"), 
-          System.getenv("AWS_PASSWORD"));
+          AWSurl, 
+          AWSuser, 
+          AWSpass);
       log.info("Connected to Database.");
     }catch(SQLException e) {
       log.error("Failed to connect to database", e);
     }
   }
   
+  
+  public DatabaseManager() {
+    this(System.getenv("AWS_URL"), System.getenv("AWS_USERNAME"), System.getenv("AWS_PASSWORD"));
+  }
+
+
   public void save(UserSession userSession) {
     PreparedStatement stmt = null;
     
