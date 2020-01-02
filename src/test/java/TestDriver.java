@@ -43,6 +43,8 @@ public class TestDriver extends TestCase{
   @Test
   public void testGetBalanceFromDB() {
     assertThat(dbManager.getBalanceFromDatabase("revature"), is(0.0));
-    assertThat(dbManager.getBalanceFromDatabase("Chopin"), not(0.0));
+    dbManager.changeBalance(100.0, "revature");
+    assertThat(dbManager.getBalanceFromDatabase("revature"), not(0.0));
+    dbManager.changeBalance(0.0, "revature");
   }
 }

@@ -15,11 +15,12 @@ public class WithdrawQuery extends Query {
 	protected void interpretOption(double i) {
 		try {
 			Service.withdraw(i);
-			finished = true;
 		}catch(AccountOverdrawnException e) {
 			System.out.println("Not enough funds");
+			
 		}finally {
 			Controller.setState("optionScreen");
+			finished = true;
 		}
 	}
 	

@@ -11,8 +11,12 @@ public class DepositQuery extends Query {
 	}
 	
 	protected void interpretOption(double i) {
+	  if(i >= 0) {
 		Service.deposit(i);
-		finished = true;
-		Controller.setState("optionScreen");
+	  }else {
+	    System.out.println("Invalid input. Please input a positive value.");
+	  }
+	  finished = true;
+	  Controller.setState("optionScreen");
 	}
 }
