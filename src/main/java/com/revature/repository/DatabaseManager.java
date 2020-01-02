@@ -232,4 +232,22 @@ public class DatabaseManager {
     return 0.0;
   }
   
+  public void removeProfile(String username) {
+    PreparedStatement stmt = null;
+    //for teardown in tests
+    
+    log.trace("Remove profile from database: " + username);
+    
+    try {
+      
+      stmt = cnn.prepareStatement("DELETE FROM roster WHERE username = ?");
+      stmt.setString(1, username);
+      
+      stmt.execute();
+      
+    }catch(SQLException e) {
+      e.printStackTrace();
+    }
+  }
+  
 }
