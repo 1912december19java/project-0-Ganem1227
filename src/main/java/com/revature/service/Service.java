@@ -28,11 +28,11 @@ public class Service {
 		return true;
 	}
 	
-	public static void addUser() {
+	public static boolean addUser() {
 	  currSession.setUsername(currUsername);
 	  
-	  dbManager.newProfile(currSession);
 	  currSession.setUser_id(dbManager.getUserId(currUsername));
+	  return dbManager.newProfile(currSession);
 	}
 	
 	public static void addPassword(String password) {

@@ -111,7 +111,7 @@ public class DatabaseManager {
     }
   }
   
-  public void newProfile(UserSession userSession) {
+  public boolean newProfile(UserSession userSession) {
     PreparedStatement stmt = null;
     
     log.trace("Make new user: " + userSession.getUsername());
@@ -123,9 +123,10 @@ public class DatabaseManager {
       stmt.setDouble(4, 0.0);
       
       stmt.execute();
+      return true;
     }catch(SQLException e) {
       System.out.println("Creating new profile failed.");
-      e.printStackTrace();
+      return false;
     }
   }
   

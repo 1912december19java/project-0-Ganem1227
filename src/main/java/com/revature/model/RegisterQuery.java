@@ -52,12 +52,15 @@ public class RegisterQuery extends Screen {
 			System.out.print("Enter your email: ");
 			newEmail = Controller.CONSOLE_INPUT.nextLine();
 			//This is where service verifies your email
-			finished = Service.verifyEmail(newEmail);
-			if(finished) Service.addUser();
+			Service.verifyEmail(newEmail);
+			finished = Service.addUser();
+			if(finished) {
+			  Controller.setState("optionScreen");
+			} else {
+			  Controller.setState("mainMenu");
+			  finished = true;
+			}
 		}
-		
-		
-		Controller.setState("optionScreen");
 	}
 	
 	
