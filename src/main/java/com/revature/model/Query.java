@@ -2,10 +2,11 @@ package com.revature.model;
 
 import java.util.InputMismatchException;
 import com.revature.controller.Controller;
+import com.revature.service.Service;
 
 public class Query extends Screen {
-	public Query(String newName) {
-		super(newName);
+	public Query(String newName, Service service) {
+		super(newName, service);
 	}
 	
 	public void show() {

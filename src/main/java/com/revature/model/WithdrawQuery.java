@@ -6,15 +6,20 @@ import com.revature.service.*;
 
 public class WithdrawQuery extends Query {
 
-	public WithdrawQuery(String newName) {
-		super(newName);
+	public WithdrawQuery(String newName, Service service) {
+		super(newName, service);
 		intro = "---Withdraw Money---";
 		prompt = "Amount to withdraw: ";
 	}
 	
 	protected void interpretOption(double i) {
 		try {
-			Service.withdraw(i);
+		  if(i >= 0) {
+		    service.withdraw(i);
+		  }else {
+		    System.out.println("Please enter a positive number.");
+		  }
+			
 		}catch(AccountOverdrawnException e) {
 			System.out.println("Not enough funds");
 			

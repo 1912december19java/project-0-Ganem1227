@@ -1,6 +1,7 @@
 package com.revature.model;
 
 import java.util.ArrayList;
+import com.revature.service.Service;
 
 public class Screen {
 	protected String screenName;
@@ -9,11 +10,13 @@ public class Screen {
 	protected ArrayList<String> options = new ArrayList<String>();
 	protected Boolean finished;
 	protected boolean hasIntro;
+	protected Service service;
 	
-	public Screen(String newName) {
+	public Screen(String newName, Service service) {
 		super();
 		this.screenName = newName;
 		this.finished = false;
+		this.service = service;
 	}
 	
 	void displayIntro() {
@@ -31,10 +34,14 @@ public class Screen {
 	void displayInputInstructions() {
 	}
 	
-	protected void interpretOption(int i) {
+	protected void interpretOption(String str) {
 	}
 	
 	public String getScreenName() {
 		return screenName;
+	}
+	
+	public void setService(Service service) {
+	  this.service = service;
 	}
 }

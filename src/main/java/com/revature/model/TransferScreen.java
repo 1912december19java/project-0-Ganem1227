@@ -6,8 +6,8 @@ import com.revature.service.Service;
 
 public class TransferScreen extends Screen {
 
-	public TransferScreen(String newName) {
-		super(newName);
+	public TransferScreen(String newName, Service service) {
+		super(newName, service);
 		intro = "---Transfer Money to Recipient---";
 		prompt = "Please Enter the Recipient's Username: ";
 		finished = false;
@@ -18,13 +18,14 @@ public class TransferScreen extends Screen {
 		boolean recipientFound = false;
 		double amount = 0.0;
 		String recipient = "";
+		prompt = "Please Enter the Recipient's Username: ";
 		
 		while(!recipientFound) {
 			
 			System.out.print(prompt);
 			recipient = Controller.CONSOLE_INPUT.nextLine();
 			//Service checks the username
-			recipientFound = Service.checkDatabaseForUsername(recipient);
+			recipientFound = service.checkDatabaseForUsername(recipient);
 		}
 		
 		prompt = "Enter amount to transfer: ";
@@ -32,7 +33,7 @@ public class TransferScreen extends Screen {
 			try {
 				System.out.print(prompt);
 				amount = Controller.CONSOLE_INPUT.nextDouble();
-				finished = Service.transferMoney(recipient, amount);
+				finished = service.transferMoney(recipient, amount);
 				
 				if(!finished) {
 					System.out.println("Not enough funds to complete transaction.");

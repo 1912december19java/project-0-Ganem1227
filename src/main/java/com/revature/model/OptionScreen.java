@@ -6,8 +6,8 @@ import com.revature.service.*;
 
 public class OptionScreen extends Menu {
 	
-	public OptionScreen(String newName) {
-		super(newName);
+	public OptionScreen(String newName, Service service) {
+		super(newName, service);
 		//intro = "---Hello, your bank balance is $" + Service.getBalance() + "---";
 		prompt = "What would you like to do today?"; 
 		options.add("Make a deposit");
@@ -34,7 +34,7 @@ public class OptionScreen extends Menu {
 				 break;
 		case 5 : System.out.println("Logging out, thanks for coming!");
 		 		 Controller.setState("mainMenu");
-		 		 Service.resetStaticFields();
+		 		 service.resetStaticFields();
 		 		 finished = true;
 		 		 break;
 		default : System.out.println("Please input a value in range 1-" + (options.size()));
@@ -43,12 +43,13 @@ public class OptionScreen extends Menu {
 	}
 	
 	public void show() {
-		intro = "---Hello " + Service.getUserName() + ", your bank balance is $" + Service.getBalance() + "---";
+		intro = "---Hello " + Service.getUserName() + ", your bank balance is $" + service.getBalance() + "---";
+		service.fetchUserId();
 		super.show();
 	}
 	
 	public void printTransactionHistory() {
-		List<String> history = Service.getTransactionHistory();
+		List<String> history = service.getTransactionHistory();
 		System.out.println("---Transaction History---");
 		
 		for (int i = 0; i < history.size(); i++) {

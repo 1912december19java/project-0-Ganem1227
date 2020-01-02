@@ -2,11 +2,12 @@ package com.revature.model;
 
 import java.util.InputMismatchException;
 import com.revature.controller.Controller;
+import com.revature.service.Service;
 
 public class Menu extends Screen {
 	
-	public Menu(String newName) {
-		super(newName);
+	public Menu(String newName, Service service) {
+		super(newName, service);
 	}
 	
 	public void show() {

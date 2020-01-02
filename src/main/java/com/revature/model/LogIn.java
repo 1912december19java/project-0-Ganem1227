@@ -5,8 +5,8 @@ import com.revature.service.*;
 
 public class LogIn extends Screen{
 	
-	public LogIn(String newName) {
-		super(newName);
+	public LogIn(String newName, Service service) {
+		super(newName, service);
 		prompt = "Username: ";
 		intro = "---Log In---";
 	}
@@ -31,7 +31,7 @@ public class LogIn extends Screen{
 			System.out.print(prompt);
 			pass = Controller.CONSOLE_INPUT.nextLine();
 			
-			finished = Service.checkLoginCredentials(user, pass);
+			finished = service.checkLoginCredentials(user, pass);
 			//Service.checkLoginCredentials(user, pass);
 			
 			if(!finished) {

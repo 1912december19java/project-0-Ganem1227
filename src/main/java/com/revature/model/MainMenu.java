@@ -1,10 +1,11 @@
 package com.revature.model;
 
 import com.revature.controller.Controller;
+import com.revature.service.Service;
 
 public class MainMenu extends Menu {
-	public MainMenu(String newName) {
-		super(newName);
+	public MainMenu(String newName, Service service) {
+		super(newName, service);
 		intro = "---Welcome to the Bank!---";
 		prompt = "Would you like to log in or register a new account?";
 		options.add("Log in");

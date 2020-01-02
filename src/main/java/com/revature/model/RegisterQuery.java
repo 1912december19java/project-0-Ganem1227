@@ -5,8 +5,8 @@ import com.revature.exception.PasswordToShortException;
 import com.revature.service.Service;
 
 public class RegisterQuery extends Screen {
-	public RegisterQuery(String newName) {
-		super(newName);
+	public RegisterQuery(String newName, Service service) {
+		super(newName, service);
 	}
 	
 	public void show() {
@@ -22,7 +22,13 @@ public class RegisterQuery extends Screen {
 		while(!userValid) {
 			System.out.print("Enter your new username: ");
 			newUsername = Controller.CONSOLE_INPUT.nextLine();
-			userValid = Service.checkUsername(newUsername);
+			
+			if (newUsername.length() == 0) {
+			  System.out.println("Username too short, please try again.");
+			  continue;
+			}
+			
+			userValid = !service.checkUsername(newUsername);
 			if(!userValid) System.out.println("Username taken, please try again.");
 		}
 		
@@ -43,7 +49,7 @@ public class RegisterQuery extends Screen {
 			
 			if (newPassword.equals(confirmPassword)) {
 			  passwordValid = true;
-			  Service.addPassword(newPassword);
+			  service.addPassword(newPassword);
 			}
 			else System.out.println("Password mismatch, please reenter your new password.");
 		}
@@ -52,8 +58,8 @@ public class RegisterQuery extends Screen {
 			System.out.print("Enter your email: ");
 			newEmail = Controller.CONSOLE_INPUT.nextLine();
 			//This is where service verifies your email
-			Service.verifyEmail(newEmail);
-			finished = Service.addUser();
+			service.verifyEmail(newEmail);
+			finished = service.addUser();
 			if(finished) {
 			  Controller.setState("optionScreen");
 			} else {

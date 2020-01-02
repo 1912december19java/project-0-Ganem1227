@@ -17,29 +17,34 @@ public class Service {
 	public Service() {
 		super();
 		currUsername = "";
-		currSession.setBalance(10.0);
+		currSession.setBalance(0.0);
 	}
 	
-	public static boolean checkUsername(String user) {
+	public boolean checkUsername(String user) {
 		//check if the username is here, set current username
 		
 		currUsername = user;
-		currSession.setUser_id(dbManager.getUserId(currUsername));
-		return true;
+		
+		//currSession.setUser_id(dbManager.getUserId(currUsername));
+		return dbManager.usernameInDatabase(user);
 	}
 	
-	public static boolean addUser() {
+	public boolean addUser() {
 	  currSession.setUsername(currUsername);
 	  
 	  currSession.setUser_id(dbManager.getUserId(currUsername));
 	  return dbManager.newProfile(currSession);
 	}
 	
-	public static void addPassword(String password) {
+	public void addPassword(String password) {
 	  currSession.setPassword(password);
 	}
 	
-	public static boolean checkLoginCredentials(String user, String password) {
+	public void fetchUserId() {
+	  currSession.setUser_id(dbManager.getUserId(currUsername));
+	}
+	
+	public boolean checkLoginCredentials(String user, String password) {
 		//check the password associated with user
 	  if(dbManager.usernameInDatabase(user) && dbManager.verifyPassword(user, password)) {
     		currUsername = user;
@@ -56,7 +61,7 @@ public class Service {
 		return false;
 	}
 	
-	public static void withdraw(Double value) throws AccountOverdrawnException {
+	public void withdraw(Double value) throws AccountOverdrawnException {
 		if (currSession.getBalance() < value) throw new AccountOverdrawnException();
 		else {
 			currSession.setBalance(currSession.getBalance() - value);
@@ -66,19 +71,19 @@ public class Service {
 		}
 	}
 	
-	public static boolean verifyEmail(String newEmail) {
+	public boolean verifyEmail(String newEmail) {
 	  currSession.setEmail(newEmail);
 	  return true;
 	}
 	
-	public static void deposit(Double value) {
+	public void deposit(Double value) {
 		currSession.setBalance(currSession.getBalance() + value);
 		dbManager.changeBalance(currSession.getBalance(), currUsername);
 		dbManager.newTransaction("Deposit", value, currSession.getUser_id());
 		//sessionHistory.add("Deposit :  $" + value);
 	}
 	
-	public static String getBalance() {
+	public String getBalance() {
 	  Double result = dbManager.getBalanceFromDatabase(currUsername);
 	  currSession.setBalance(result);
 		return result.toString();
@@ -88,18 +93,18 @@ public class Service {
 		return currUsername;
 	}
 	
-	public static void resetStaticFields() {
+	public void resetStaticFields() {
 		currUsername = "";
 		sessionHistory.clear();
 		currSession.cleanSession();
 	}
 	
-	public static boolean checkDatabaseForUsername(String name) {
+	public boolean checkDatabaseForUsername(String name) {
 		
 		return dbManager.usernameInDatabase(name);
 	}
 	
-	public static boolean transferMoney(String recipient, double amount) {
+	public boolean transferMoney(String recipient, double amount) {
 		if (amount <= currSession.getBalance()) {
 			//sessionHistory.add("Transfer : -$" + amount);
 			if (dbManager.usernameInDatabase(recipient)) {
@@ -117,7 +122,7 @@ public class Service {
 		}else return false;
 	}
 	
-	public static List<String> getTransactionHistory() {
+	public List<String> getTransactionHistory() {
 		return dbManager.getAllTransactionOfUser(currSession);
 	}
 }
